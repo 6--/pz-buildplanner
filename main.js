@@ -68,6 +68,15 @@ $(window).on("load", function () {
     state.save();
   });
 
+  $("#bonus-points").on("change", function () {
+      if (State.instance == null) return;
+      const state = State.get();
+      state.preset.settings.bonusPoints = parseInt(this.value, 10) || 0;
+      state.update();
+      state.rebuildInterfaceTraitsProfessions();
+      state.save();
+  });
+
   $("#setting-is-sleep-enabled").on("change", function () {
     if (State.instance == null) return;
     const state = State.get();
@@ -330,6 +339,7 @@ class State {
   /** @returns {integer} */
   getPointTotal() {
     const freePoints = this.preset.settings.freePoints;
+    const bonusPoints = this.preset.settings.bonusPoints;
     const currentProfession = this.currentModData.professions.get(this.preset.profession);
     let base = freePoints + (currentProfession != null ? currentProfession.points : 0);
     for (const id of this.preset.traits.values()) {
@@ -616,6 +626,7 @@ class Settings {
     this.showUnavailable = showUnavailable;
     /** @type {integer} */
     this.freePoints = freePoints;
+    this.bonusPoints = bonusPoints;
   }
 
   /** @param {[bool, bool, bool]?} array */
@@ -623,7 +634,8 @@ class Settings {
     return new Settings({
       isMultiplayer: array[0],
       isSleepEnabled: array[1],
-      showUnavailable: array[2]
+      showUnavailable: array[2],
+      bonusPoints: array[3] || 0
     });
   }
 
@@ -631,7 +643,8 @@ class Settings {
     return [
       this.isMultiplayer,
       this.isSleepEnabled,
-      this.showUnavailable
+      this.showUnavailable,
+      this.bonusPoints
     ];
   }
 
