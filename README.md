@@ -2,7 +2,7 @@
 
 A character build planner for Project Zomboid with support for mods (modded traits and occupations).
 
-You can use it here: https://scottythepilot.github.io/pz-buildplanner/.
+You can use it here: https://6--.github.io/pz-buildplanner/.
 
 ## Included Mods
 - [Hephas Occupations and Traits](https://steamcommunity.com/sharedfiles/filedetails/?id=3256482412)
